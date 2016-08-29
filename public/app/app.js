@@ -74,6 +74,16 @@ app.config(function ($httpProvider,$stateProvider, $urlRouterProvider) {
 		  }
 		  }
 		})
+.state('app.view',{
+		  
+		  url:'userplace/view/:id',
+		  views:{
+		    'content@':{
+		      templateUrl:'views/userplace.html',
+		      controller:'UserPlaceDetailController'
+		    }
+		  }
+})
 
 		
 	

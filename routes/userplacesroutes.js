@@ -19,11 +19,23 @@ userplacesroutes.get('/yelpapi/:location',function(req,res){
 // See http://www.yelp.com/developers/documentation/v2/search_api
 yelp.search({ term: 'bars,restaurants', location: req.params.location })
 .then(function (data) {
-  res.end(JSON.stringify(data.businesses));
+  return res.end(JSON.stringify(data.businesses));
 })
 .catch(function (err) {
-  console.error(err);
+          return res.status(400).send({success: false, msg: 'Api unavailable for this location'});
+
 });
+});
+userplacesroutes.get('/yelpapi/business/:id',function(req,res){
+// See http://www.yelp.com/developers/documentation/v2/search_api
+// See http://www.yelp.com/developers/documentation/v2/search_api
+yelp.business(req.params.id)
+  .then(function(data){
+    res.send(JSON.stringify(data));
+  })
+  .catch(function(err){
+    console.error(err);
+  })
 });
 var getToken = function(headers) {
   if (headers && headers.authorization) {
@@ -53,7 +65,7 @@ if(token){
   new_user_place.username = req.body.username;
   new_user_place.location = req.body.location;
   new_user_place.save(function(err){
-      if (err)  return res.status(400).send({success:false,msg:'You already signup for this location'});
+      if (err)  return res.status(400).send({success:false,msg:''});
       return res.status(201).send({success:true,msg:"UserPlace saved successfully"});
   });
 }
@@ -61,6 +73,26 @@ else{
         return res.status(403).send({success: false, msg: 'No token provided.'});
 
 }
+})
+userplacesroutes.delete('/userplaces/:location/:username',function(req,res){
+  var username = req.params.username;
+  console.log(username);
+  var location = req.params.location;
+  console.log(location);
+  if(! req.params.username){
+    return res.status(400).send({success:false, msg:"You didnt' specified the username"})
+  }
+  if(! req.params.location){
+    return res.status(400).send({success:false,msg:"You didnt specified the location"})
+  }
+  UserPlace.remove({username:username,location:location},function(err){
+      if (err)  {
+        console.log(err);
+        return res.status(400).send({success:false,msg:'You don"t reserve this location'});
+      }
+      console.log("success");
+      return res.status(201).send({success:true,msg:"Userplace removed successufully"});
+  })
 })
 
 module.exports = userplacesroutes;

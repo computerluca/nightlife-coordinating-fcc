@@ -1,7 +1,11 @@
 
 .content{
     padding:5px;
+    font-size:16px;
     color:black;
+}
+.content p{
+    
 }
 
 header{
@@ -11,5 +15,6 @@ header{
 body{
                     background-image:url("../images/coffee.png");
                     text-align:center;
+                    
 
 }

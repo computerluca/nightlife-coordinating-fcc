@@ -1,0 +1,23 @@
+<div class="content">
+     <div class="row">
+         <div class="col col-xs-6">
+        <h1>Details of the location</h1>
+        <p>name => {{details.name}}</p>
+       <p>Address => {{details.location.address[0]}}</p> 
+       <p>Rating => {{details.rating}}</p>
+       </div>
+    <div>
+        
+        <div class="col col-xs-6">
+        <h1>Users that joined the location</h1>
+        <ul>
+        
+            <li ng-repeat="user in userplace">{{user.username}}</li>
+        </ul>
+        </div>
+    </div>
+   
+    
+    
+    
+</div>

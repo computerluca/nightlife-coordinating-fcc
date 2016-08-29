@@ -1,9 +1,12 @@
 <div class="content">
     <h2>Search Results</h2>
-<table class="table">
-    <tr><th>
+   
+<table class="table" ng-if="results.length>0">
+    <tr>
+        <th>Detail</th><th>
         phone
     </th>
+    
     <th>name</th>
     <th>location</th>
     <th>city</th>
@@ -11,13 +14,14 @@
     <td># of participants</td>
     <th></th></tr>
     <tr ng-repeat="result in results">
+        <td><a ui-sref="app.view({id:result.id})">Detail</a></td>
         <td>{{result.display_phone}}</td>
         <td>{{result.id}}</td>
         <td>{{result.location.address[0]}}</td>
         <td>{{result.location.city}}</td>
         <td><img src="{{result.image_url}}" /></td>
         <td>{{result.count}}</td>
-        <td><button ng-click="reserve(result.id)">I will come here</button>
+        <td><button  ng-click="reserve(result.id)">JOIN/UNJOIN</button>
 
     </tr>
 </table>

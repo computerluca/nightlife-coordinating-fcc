@@ -6,7 +6,6 @@
 
             <div class="col col-lg-10"><input name="username" type="text" ng-model="user.name" placeholder="Username" required>
                 <span style="color:red" ng-show="registerform.username.$dirty && registerform.username.$invalid">
-                        <span ng-show = "registerform.username.$error.required">{{'error.user.name'| translate}}</span>
                 </span>
 
 
@@ -21,7 +20,6 @@
             <div class="col col-lg-10">
                 <input name="password" type="password" ng-model="user.password" placeholder="Password" required>
                 <span style="color:red" ng-show="registerform.password.$dirty && registerform.password.$invalid">
-                        <span ng-show = "registerform.username.$dirty.password.$error.required">{{'error.user.password'| translate}}</span>
                 </span>
                 <button class="btn btn-sm" ng-disabled="registerform.username.$invalid ||
                         registerform.password.$invalid" ng-click="signup()">Register</button>
