@@ -33,7 +33,10 @@ app.controller("searchbusinesscontroller", function($scope, $timeout, AuthServic
             alert("Errore retrieving user data. This is the detail of the error" + err);
         });
     }
-    $http.get("/api/yelpapi/" + $stateParams.query).then(function(data) {
+
+   
+
+   $http.get("/api/yelpapi/" + $stateParams.query).then(function(data) {
             
             if (data) {
                 $scope.results = data.data;
@@ -52,9 +55,10 @@ $scope.results[i].count = data.data.length;
 
     }).catch(function(err){
         console.log(err);
-    });
-            $scope.reserve = function(id) {
+});
 
+            $scope.reserve = function(id) {
+            
                 if (!($scope.isLoggedIn())) {
                     $state.go('app.login', {
                         query: $stateParams.query

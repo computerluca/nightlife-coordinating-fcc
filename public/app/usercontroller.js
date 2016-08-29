@@ -17,13 +17,35 @@ angular.module('usermodule',[])
   });
        }
   $scope.search = function(){
-    console.log("Searching in progress");
     $state.go('app.search', {query:$scope.location});
+  }
+  $scope.enter = function($event){
+    var keyCode = $event.which || $event.keyCode;
+    if (keyCode === 13) {
+        $scope.search();
+    }
   }
        
    
     }]);
+app.directive('dlEnterKey', function() {
+    return function(scope, element, attrs) {
 
+        element.bind("keydown keypress", function(event) {
+            var keyCode = event.which || event.keyCode;
+
+            // If enter key is pressed
+            if (keyCode === 13) {
+                scope.$apply(function() {
+                        // Evaluate the expression
+                    scope.$eval(attrs.dlEnterKey);
+                });
+
+                event.preventDefault();
+            }
+        });
+    };
+});
 
 app.controller('LoginCtrl', function($scope, AuthService, $state,$http,$stateParams) {
   $scope.user = {
