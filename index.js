@@ -21,12 +21,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
  app.use(passport.initialize());
  require('./config/passport')(passport);
 var authenticationRoutes = require('./routes/userroutes');
+var searchroutes = require('./routes/userplacesroutes');
+
 
 
 
 
 
 app.use('/authentication',authenticationRoutes);
+app.use('/api',searchroutes);
 
 app.listen(process.env.PORT,  function() {
   console.log('Express server listening on %d', port);

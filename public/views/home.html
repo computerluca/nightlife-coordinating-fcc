@@ -1,4 +1,4 @@
-<div class="content">
+<div class="content" ng-controller="IndexController">
 <header>
 
         <!-- Main component for a primary marketing message or call to action -->
@@ -11,9 +11,9 @@
 				
                     <h1>Are you hungry? Find a bar or a restaurant  </h1>
                     
-                      <div class="form-group">
+                      <div class="form-group" >
 
-                    <input type="text" name="location" class="form-control" placeholder="Enter a Location" />
+                    <input type="text" name="location" ng-model = "location" class="form-control" placeholder="Enter a Location" />
                     <button class="btn btn-lg btn-primary" ng-click="search()">Start Search</button>
                 </div>
             </div>

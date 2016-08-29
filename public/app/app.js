@@ -1,5 +1,5 @@
 
-var app = angular.module('nightlifefcc', ['usermodule','ngResource','ui.router']);
+var app = angular.module('nightlifefcc', ['usermodule','searchmodule','ngResource','ui.router']);
 app.constant('AUTH_EVENTS', {
   notAuthenticated: 'auth-not-authenticated'
 })
@@ -34,7 +34,7 @@ app.config(function ($httpProvider,$stateProvider, $urlRouterProvider) {
             
 		
 		.state('app.login',{
-				url:'login',
+				url:'login?query',
 				views:{
 						'content@':{
 								templateUrl:'views/login.html',
@@ -65,7 +65,16 @@ app.config(function ($httpProvider,$stateProvider, $urlRouterProvider) {
 			
 			
 		})
-	
+		.state('app.search',{
+		  url:'search?query',
+		  views:{
+		  'content@':{
+		    templateUrl:'views/results.html',
+		    controller:'searchbusinesscontroller'
+		  }
+		  }
+		})
+
 		
 	
 	

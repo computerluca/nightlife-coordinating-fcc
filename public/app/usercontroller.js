@@ -6,22 +6,26 @@ angular.module('usermodule',[])
     app.controller('IndexController', ['$scope','AuthService','$http','$state', function ($scope,AuthService,$http,$state) {
     
      $scope.memberinfo="";
-      $scope.changeLanguage = function (langKey) {
-        $translate.use(langKey);
-      };
        $scope.isLoggedIn = AuthService.isAuthenticated;
        $scope.logout=AuthService.logout;
        if($scope.isLoggedIn()){
        $http.get('/authentication/memberinfo').then(function(result) {
       $scope.memberinfo = result.data.msg;
       $("#memberinfo").text($scope.memberinfo);
+  },function(err){
+    alert("Errore retrieving user data. This is the detail of the error"+err);
   });
        }
+  $scope.search = function(){
+    console.log("Searching in progress");
+    $state.go('app.search', {query:$scope.location});
+  }
+       
    
     }]);
 
 
-app.controller('LoginCtrl', function($scope, AuthService, $state,$http) {
+app.controller('LoginCtrl', function($scope, AuthService, $state,$http,$stateParams) {
   $scope.user = {
     name: '',
     password: ''
@@ -30,11 +34,12 @@ app.controller('LoginCtrl', function($scope, AuthService, $state,$http) {
        
     
     if(($scope.isLoggedIn())){
-			$state.go("app.my");
-			
+
 	 $http.get('/authentication/memberinfo').then(function(result) {
       $scope.memberinfo = result.data.msg;
       $("#memberinfo").text($scope.memberinfo);
+  },function(err){
+    alert("error retrieving user data");
   });
 	}
 	$scope.logout=function(){
@@ -49,7 +54,10 @@ app.controller('LoginCtrl', function($scope, AuthService, $state,$http) {
  $http.get('/authentication/memberinfo').then(function(result) {
       $scope.memberinfo = result.data.msg;
       $("#memberinfo").text($scope.memberinfo);
-      $state.go("app.my");
+      if($stateParams.query){
+        $state.go('app.search',{query:$stateParams.query});
+
+      }
   });
   
       }, function(errMsg) {
@@ -67,9 +75,7 @@ app.controller('RegisterCtrl', function($scope, AuthService, $state) {
     name: '',
     password: ''
   };
-  if(AuthService.isAuthenticated()){
-      $state.go('app.my');
-    }
+  
   $scope.signup = function() {
     AuthService.register($scope.user)
      .then(function(msg) {

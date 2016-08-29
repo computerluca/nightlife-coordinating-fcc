@@ -1,0 +1,25 @@
+<div class="content">
+    <h2>Search Results</h2>
+<table class="table">
+    <tr><th>
+        phone
+    </th>
+    <th>name</th>
+    <th>location</th>
+    <th>city</th>
+    <th>image</th>
+    <td># of participants</td>
+    <th></th></tr>
+    <tr ng-repeat="result in results">
+        <td>{{result.display_phone}}</td>
+        <td>{{result.id}}</td>
+        <td>{{result.location.address[0]}}</td>
+        <td>{{result.location.city}}</td>
+        <td><img src="{{result.image_url}}" /></td>
+        <td>{{result.count}}</td>
+        <td><button ng-click="reserve(result.id)">I will come here</button>
+
+    </tr>
+</table>
+    
+</div>
